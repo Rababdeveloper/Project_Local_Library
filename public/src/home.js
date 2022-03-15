@@ -1,16 +1,22 @@
 const { partitionBooksByBorrowedStatus } = require("./books");
 
 function getTotalBooksCount(books) {
-  return books.length;
+  //use helper function arrayItemCount to count books
+  return arrayItemCount(books);
 }
 
 function getTotalAccountsCount(accounts) {
-  return accounts.length;
+  //use helper function arrayItemCount to count accounts
+  return arrayItemCount(accounts);
 }
 
 function getBooksBorrowedCount(books) {
-  const partitioned= partitionBooksByBorrowedStatus(books);
-  return partitioned[0].length;
+    //use reduce to iterate through each book
+  return books.reduce((borrowCount, { borrows }) => {
+    const mostRecent = borrows[0];
+    if (!mostRecent.returned) borrowCount++;
+    return borrowCount;
+  }, 0);
 }
 
 function getMostCommonGenres(books) {
@@ -56,7 +62,10 @@ function getMostPopularAuthors(books, authors) {
  });
  return result.sort((a, b) => b.count - a.count).slice(0, 5);
 }
-
+//helper function to easily count up any type of item array based on the length 
+function arrayItemCount(item) {
+  return item.length;
+}
 module.exports = {
   getTotalBooksCount,
   getTotalAccountsCount,
