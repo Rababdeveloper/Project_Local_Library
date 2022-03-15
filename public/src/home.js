@@ -1,4 +1,3 @@
-const { partitionBooksByBorrowedStatus } = require("./books");
 
 function getTotalBooksCount(books) {
   //use helper function arrayItemCount to count books
@@ -62,6 +61,7 @@ function getMostPopularAuthors(books, authors) {
  });
  return result.sort((a, b) => b.count - a.count).slice(0, 5);
 }
+
 //helper function to easily count up any type of item array based on the length 
 function arrayItemCount(item) {
   return item.length;
